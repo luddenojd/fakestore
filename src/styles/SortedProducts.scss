@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand&display=swap");
+
+.wrapper {
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    font-family: "Quicksand", sans-serif;
+    #logo {
+      font-family: "Bungee Spice", cursive;
+      font-size: 40px;
+    }
+  }
+  .products-menu {
+    .link-to-oneproduct {
+      list-style-type: none;
+      font-family: "Quicksand", sans-serif;
+      text-decoration: none;
+      color: black;
+      .list-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+}

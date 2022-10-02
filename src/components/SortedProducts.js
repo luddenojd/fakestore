@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "../styles/SortedProducts.scss";
 
 export function SortedProducts() {
   const products = useSelector((state) => state.products.data);
@@ -12,30 +13,26 @@ export function SortedProducts() {
     setAllProducts(products);
   }, [products]);
 
-  useEffect(() => {
-    if (category) {
-      setAllProducts(null);
-    }
-    if (allProducts) {
-      setCategory(null);
-    }
-  }, [category, allProducts]);
+  console.log(allProducts);
 
   useEffect(() => {
     let newProducts = products;
     if (category !== "") {
       newProducts = products.filter((current) => current.category === category);
       setSortedProducts(newProducts);
+      setAllProducts(null);
     }
 
     console.log(newProducts);
-  }, [category, products]);
+  }, [category]);
 
   return (
     products && (
-      <div>
-        <ul>
-          <li onClick={() => setAllProducts(products)}>All Products</li>
+      <div className="wrapper">
+        <ul className="menu">
+          <li id="logo" onClick={() => setAllProducts(products)}>
+            WebShop
+          </li>
           <li onClick={() => setCategory("women's clothing")}>
             Womens clothing
           </li>
@@ -43,10 +40,27 @@ export function SortedProducts() {
           <li onClick={() => setCategory("electronics")}>Electronics</li>
           <li onClick={() => setCategory("jewelery")}>Jewelery</li>
         </ul>
-        <ul>
+        <ul className="products-menu">
           {allProducts?.map((product) => (
-            <Link to={`oneproduct?id=${product.id}`}>
-              <li key={product.id}>
+            <Link
+              className="link-to-oneproduct"
+              to={`oneproduct?id=${product.id}`}
+            >
+              <li className="list-item" key={product.id}>
+                <img src={product.image} width="100" alt="" />
+                <p>{product.title}</p>
+                <p>{product.price}</p>
+              </li>
+            </Link>
+          ))}
+        </ul>
+        <ul className="products-menu">
+          {sortedProducts?.map((product) => (
+            <Link
+              className="link-to-oneproduct"
+              to={`oneproduct?id=${product.id}`}
+            >
+              <li className="list-item" key={product.id}>
                 <img src={product.image} width="100" alt="" />
                 <p>{product.title}</p>
                 <p>{product.price}</p>
@@ -55,15 +69,8 @@ export function SortedProducts() {
           ))}
         </ul>
         <ul>
-          {sortedProducts?.map((product) => (
-            <Link to={`oneproduct?id=${product.id}`}>
-              <li key={product.id}>
-                <img src={product.image} width="100" alt="" />
-                <p>{product.title}</p>
-                <p>{product.price}</p>
-              </li>
-            </Link>
-          ))}
+          <li>Previous</li>
+          <li>Next</li>
         </ul>
       </div>
     )
