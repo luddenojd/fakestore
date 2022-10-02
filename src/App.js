@@ -21,7 +21,7 @@ export default function App() {
       <div className="App"></div>
       <Routes>
         <Route element={<SortedProducts />} path="/" />
-        <Route element={<OneProduct />} path="/oneproduct" />
+        <Route element={<OneProduct />} path="/product" />
       </Routes>
     </BrowserRouter>
   );

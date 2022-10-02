@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export function OneProduct() {
@@ -25,9 +26,13 @@ export function OneProduct() {
               <img src={product.image} width="100" alt="" />
               <p>{product.title}</p>
               <p>{product.price}</p>
+              <p>{product.description}</p>
             </li>
           ))}
         </ul>
+        <Link to="/">
+          <p>Tillbaka</p>
+        </Link>
       </div>
     )
   );
