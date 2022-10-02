@@ -9,17 +9,23 @@ export function SortedProducts() {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
-    if (products) {
-      setAllProducts(products);
-    }
+    setAllProducts(products);
   }, [products]);
+
+  useEffect(() => {
+    if (category) {
+      setAllProducts(null);
+    }
+    if (allProducts) {
+      setCategory(null);
+    }
+  }, [category, allProducts]);
 
   useEffect(() => {
     let newProducts = products;
     if (category !== "") {
       newProducts = products.filter((current) => current.category === category);
       setSortedProducts(newProducts);
-      setAllProducts(null);
     }
 
     console.log(newProducts);
