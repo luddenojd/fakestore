@@ -12,23 +12,23 @@ export function OneProduct() {
 
   useEffect(() => {
     if (products) {
-      const newProducts = [...products].filter((current) => current.id == id);
+      const newProducts = [...products].filter(
+        (current) => current.id == id
+      )?.[0];
       setOneProduct(newProducts);
     }
   }, [id, products]);
 
   return (
-    products && (
+    oneProduct && (
       <div>
         <ul>
-          {oneProduct?.map((product) => (
-            <li>
-              <img src={product.image} width="100" alt="" />
-              <p>{product.title}</p>
-              <p>{product.price}</p>
-              <p>{product.description}</p>
-            </li>
-          ))}
+          <li>
+            <img src={oneProduct.image} width="100" alt="" />
+            <p>{oneProduct.title}</p>
+            <p>{oneProduct.price}</p>
+            <p>{oneProduct.description}</p>
+          </li>
         </ul>
         <Link to="/">
           <p>Tillbaka</p>

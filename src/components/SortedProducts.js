@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
 import "../styles/SortedProducts.scss";
 
 export function SortedProducts() {
@@ -9,28 +10,27 @@ export function SortedProducts() {
     0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750,
     800, 850, 900, 950, 1000,
   ];
+  const productsPerPage = 5;
 
   const [allProducts, setAllProducts] = useState();
   const [sortedProducts, setSortedProducts] = useState();
   const [category, setCategory] = useState("");
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [pageCount, setPageCount] = useState();
+  const pagesVisited = pageNumber * productsPerPage;
 
-  useEffect(() => {
-    setAllProducts(products);
-  }, [products]);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
-  function handleMin(event) {
-    const min = event.target.value;
-    setMinValue(min);
-    console.log(minValue);
-  }
-
-  function handleMax(event) {
-    const max = event.target.value;
-    setMaxValue(max);
-    console.log(maxValue);
-  }
+  // useEffect(() => {
+  //   setAllProducts(products);
+  //   if (allProducts) {
+  //     setPageCount(Math.ceil(allProducts.length / productsPerPage));
+  //   }
+  // }, [products]);
 
   useEffect(() => {
     let newProducts = products;
@@ -44,6 +44,9 @@ export function SortedProducts() {
     }
     setSortedProducts(newProducts);
     setAllProducts(null);
+    if (sortedProducts) {
+      setPageCount(Math.ceil(sortedProducts.length / productsPerPage));
+    }
   }, [category, products, maxValue, minValue]);
 
   return (
@@ -62,7 +65,7 @@ export function SortedProducts() {
         </ul>
         <div className="min-max-range">
           <label htmlFor="Min">Min price</label>
-          <select onChange={handleMin} name="Min">
+          <select onChange={(e) => setMinValue(e.target.value)} name="Min">
             {optionValues.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -71,7 +74,7 @@ export function SortedProducts() {
           </select>
 
           <label htmlFor="Max">Max price</label>
-          <select onChange={handleMax} name="Max">
+          <select onChange={(e) => setMaxValue(e.target.value)} name="Max">
             {optionValues.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -79,38 +82,49 @@ export function SortedProducts() {
             ))}
           </select>
         </div>
+        {/* <ul className="products-menu">
+          {allProducts
+            ?.slice(pagesVisited, pagesVisited + productsPerPage)
+            .map((product) => (
+              <Link
+                className="link-to-oneproduct"
+                to={`product?id=${product.id}`}
+              >
+                <li className="list-item" key={product.id}>
+                  <img src={product.image} width="100" alt="" />
+                  <p>{product.title}</p>
+                  <p>{product.price}</p>
+                </li>
+              </Link>
+            ))}
+        </ul> */}
         <ul className="products-menu">
-          {allProducts?.map((product) => (
-            <Link
-              className="link-to-oneproduct"
-              to={`product?id=${product.id}`}
-            >
-              <li className="list-item" key={product.id}>
-                <img src={product.image} width="100" alt="" />
-                <p>{product.title}</p>
-                <p>{product.price}</p>
-              </li>
-            </Link>
-          ))}
+          {sortedProducts
+            ?.slice(pagesVisited, pagesVisited + productsPerPage)
+            .map((product) => (
+              <Link
+                className="link-to-oneproduct"
+                to={`product?id=${product.id}`}
+              >
+                <li className="list-item" key={product.id}>
+                  <img src={product.image} width="100" alt="" />
+                  <p>{product.title}</p>
+                  <p>{product.price}</p>
+                </li>
+              </Link>
+            ))}
         </ul>
-        <ul className="products-menu">
-          {sortedProducts?.map((product) => (
-            <Link
-              className="link-to-oneproduct"
-              to={`product?id=${product.id}`}
-            >
-              <li className="list-item" key={product.id}>
-                <img src={product.image} width="100" alt="" />
-                <p>{product.title}</p>
-                <p>{product.price}</p>
-              </li>
-            </Link>
-          ))}
-        </ul>
-        <ul>
-          <li>Previous</li>
-          <li>Next</li>
-        </ul>
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"paginationBttns"}
+          previousLinkClassName={"previousBttn"}
+          nextLinkClassName={"nextBttn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+        />
       </div>
     )
   );
