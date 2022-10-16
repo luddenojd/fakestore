@@ -33,8 +33,8 @@ export function SortedProducts() {
       );
     }
     setSortedProducts(newProducts);
-    if (sortedProducts) {
-      setPageCount(Math.ceil(sortedProducts.length / productsPerPage));
+    if (products) {
+      setPageCount(Math.ceil(products.length / productsPerPage));
     }
   }, [category, products, maxValue, minValue]);
 
@@ -95,8 +95,8 @@ export function SortedProducts() {
           containerClassName={"paginationBttns"}
           previousLinkClassName={"previousBttn"}
           nextLinkClassName={"nextBttn"}
-          disabledClassName={"paginationDisabled"}
-          activeClassName={"paginationActive"}
+          // disabledClassName={"paginationDisabled"}
+          // activeClassName={"paginationActive"}
         />
       </div>
     )

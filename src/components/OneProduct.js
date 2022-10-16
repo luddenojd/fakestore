@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export function OneProduct() {
-  const products = useSelector((state) => state.products.data);
-  const [oneProduct, setOneProduct] = useState();
+  const products = useSelector((state) => state.products.data)
+  const [oneProduct, setOneProduct] = useState()
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get("id");
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  const id = urlParams.get("id")
 
   useEffect(() => {
     if (products) {
       const newProducts = [...products].filter(
-        (current) => current.id == id
-      )?.[0];
-      setOneProduct(newProducts);
+        (current) => current.id === parseInt(id)
+      )?.[0]
+      setOneProduct(newProducts)
+      console.log(newProducts)
     }
-  }, [id, products]);
+  }, [id, products])
 
   return (
     oneProduct && (
@@ -35,5 +36,5 @@ export function OneProduct() {
         </Link>
       </div>
     )
-  );
+  )
 }
