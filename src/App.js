@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setData } from "./slices/productSlice.js";
-import { OneProduct } from "./components/OneProduct";
-import { SortedProducts } from "./components/SortedProducts";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { setData } from "./slices/productSlice.js"
+import { OneProduct } from "./components/OneProduct"
+import { SortedProducts } from "./components/SortedProducts"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 export default function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((result) => {
-        dispatch(setData(result));
-      });
-  }, []);
+        dispatch(setData(result))
+      })
+  }, [])
 
   return (
     <BrowserRouter>
@@ -24,5 +24,5 @@ export default function App() {
         <Route element={<OneProduct />} path="/product" />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }

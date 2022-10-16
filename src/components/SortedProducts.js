@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import ReactPaginate from "react-paginate";
-import "../styles/SortedProducts.scss";
-import { optionValues } from "../helper/constant";
+import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import ReactPaginate from "react-paginate"
+import "../styles/SortedProducts.scss"
+import { optionValues } from "../helper/constant"
 
 export function SortedProducts() {
-  const products = useSelector((state) => state.products.data);
+  const products = useSelector((state) => state.products.data)
 
-  const productsPerPage = 5;
+  const productsPerPage = 5
 
-  const [sortedProducts, setSortedProducts] = useState();
-  const [category, setCategory] = useState("");
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [pageCount, setPageCount] = useState();
-  const pagesVisited = pageNumber * productsPerPage;
+  const [sortedProducts, setSortedProducts] = useState(null)
+  const [category, setCategory] = useState("")
+  const [minValue, setMinValue] = useState(0)
+  const [maxValue, setMaxValue] = useState(0)
+  const [pageNumber, setPageNumber] = useState(0)
+  const [pageCount, setPageCount] = useState(0)
+  const pagesVisited = pageNumber * productsPerPage
 
   const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
-
+    setPageNumber(selected)
+  }
   useEffect(() => {
-    let newProducts = products;
+    let newProducts = products
     if (category !== "") {
-      newProducts = products.filter((current) => current.category === category);
+      newProducts = products.filter((current) => current.category === category)
     }
     if (minValue !== 0 && maxValue !== 0) {
       newProducts = products.filter(
         (current) => current.price >= minValue && current.price <= maxValue
-      );
+      )
     }
-    setSortedProducts(newProducts);
-    if (products) {
-      setPageCount(Math.ceil(products.length / productsPerPage));
+    setSortedProducts(newProducts)
+    setPageNumber(0)
+    if (newProducts || products) {
+      setPageCount(Math.ceil(newProducts.length / productsPerPage))
     }
-  }, [category, products, maxValue, minValue]);
+  }, [category, products, maxValue, minValue])
 
   return (
     products && (
@@ -95,10 +95,11 @@ export function SortedProducts() {
           containerClassName={"paginationBttns"}
           previousLinkClassName={"previousBttn"}
           nextLinkClassName={"nextBttn"}
-          // disabledClassName={"paginationDisabled"}
-          // activeClassName={"paginationActive"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+          pageClassName={"blabla"}
         />
       </div>
     )
-  );
+  )
 }

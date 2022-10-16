@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 export const productSlice = createSlice({
   name: "products",
@@ -9,12 +9,12 @@ export const productSlice = createSlice({
 
   reducers: {
     setData: (state, action) => {
-      state.data = action.payload;
-      state.loading = null;
+      state.data = action.payload
+      state.loading = null
     },
   },
-});
+})
 
-export const { setData } = productSlice.actions;
+export const { setData } = productSlice.actions
 
-export default productSlice.reducer;
+export default productSlice.reducer

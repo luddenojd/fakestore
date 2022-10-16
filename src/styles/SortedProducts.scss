@@ -4,16 +4,23 @@
   .menu {
     display: flex;
     flex-direction: column;
+    background-color: aqua;
+    color: blue;
     align-items: center;
     list-style-type: none;
     font-family: "Quicksand", sans-serif;
-    &:hover {
-      text-decoration: underline;
-    }
+    margin-top: 0;
+    margin-bottom: 10px;
+    cursor: pointer;
     #logo {
       font-family: "Bungee Spice", cursive;
       font-size: 40px;
     }
+  }
+
+  .min-max-range {
+    display: flex;
+    justify-content: space-evenly;
   }
   .products-menu {
     .link-to-oneproduct {
@@ -29,6 +36,27 @@
         flex-direction: column;
         align-items: center;
       }
+    }
+  }
+
+  .paginationBttns {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    cursor: pointer;
+    .previousBttn {
+      border: 1px solid black;
+      padding: 12px;
+      background-color: aqua;
+    }
+    .nextBttn {
+      border: 1px solid black;
+      padding: 12px;
+      background-color: aqua;
+    }
+
+    .blabla {
+      display: none;
     }
   }
 }
@@ -50,6 +78,7 @@
       flex-direction: row;
       align-items: center;
       margin-top: 100px;
+      text-align: center;
     }
   }
 }

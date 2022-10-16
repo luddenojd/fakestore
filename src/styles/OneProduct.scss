@@ -1,9 +1,14 @@
 div {
   ul {
-    li {
+    .one-product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 17px;
       img {
       }
       p {
+        font-weight: 500;
       }
     }
   }
